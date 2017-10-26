@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // CountUniqueC
 NumericVector CountUniqueC(NumericVector value, NumericVector group);
-RcppExport SEXP CommonFunctions_CountUniqueC(SEXP valueSEXP, SEXP groupSEXP) {
+RcppExport SEXP _CommonFunctions_CountUniqueC(SEXP valueSEXP, SEXP groupSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // GenerateGroup
 NumericVector GenerateGroup(NumericVector id, NumericVector start, NumericVector end);
-RcppExport SEXP CommonFunctions_GenerateGroup(SEXP idSEXP, SEXP startSEXP, SEXP endSEXP) {
+RcppExport SEXP _CommonFunctions_GenerateGroup(SEXP idSEXP, SEXP startSEXP, SEXP endSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -30,4 +30,15 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(GenerateGroup(id, start, end));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_CommonFunctions_CountUniqueC", (DL_FUNC) &_CommonFunctions_CountUniqueC, 2},
+    {"_CommonFunctions_GenerateGroup", (DL_FUNC) &_CommonFunctions_GenerateGroup, 3},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_CommonFunctions(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

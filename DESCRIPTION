@@ -1,26 +1,25 @@
 Package: CommonFunctions
 Type: Package
-Title: Commonly used functions related to the marketing panel data, especially the
-  data that has been aggregated at the brand level.
-Version: 0.1.0
+Title: Commonly used functions related to the marketing panel data, especially
+    the data that has been aggregated at the brand level.
+Version: 0.2.0
 Author: George Gui
 Maintainer: George Gui <guizhida@gmail.com>
-Description:  This package provides convenient utility function for marketing
-  research based on the a marketing panel data. It includes a set of loading,
-  formatting, and graphing functions.
+Description: This package provides convenient utility function for marketing
+    research based on the a marketing panel data. It includes a set of loading,
+    formatting, and graphing functions.
 License: MIT
 LazyData: TRUE
-LinkingTo:
-  Rcpp,
-  RcppArmadillo
+LinkingTo: Rcpp,
+    RcppArmadillo
 Imports:
-  Rcpp,
-  data.table,
-  data.tree,
-  ggplot2,
-  gridExtra,
-  yaml,
-  parallel,
-  lfe,
-  matrixStats
-RoxygenNote: 5.0.1
+    Rcpp,
+    data.table,
+    data.tree,
+    ggplot2,
+    gridExtra,
+    yaml,
+    parallel,
+    lfe,
+    matrixStats
+RoxygenNote: 6.0.1
