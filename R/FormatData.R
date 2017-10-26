@@ -114,6 +114,29 @@ GenerateTimeFactorTable <- function(
 }
 
 
+#' Combine a list of element into a list, given the names
+#'
+#' @export
+#'
+ImportList <- function(vars){
+  out <- list()
+  for(cur_var in vars){
+    out[[cur_var]] <- get(cur_var, envir = parent.frame())
+  }
+  return(out)
+}
+
+#' Export the variables in a list to the current environment
+#'
+#' @export
+#'
+ExportList <- function(x){
+  vars <- names(x)
+  for(cur_var in vars){
+    assign(cur_var, x[[cur_var]], envir = .GlobalEnv)
+  }
+}
+
 
 
 # FormatBrandPriceTable <- function(DT){

@@ -64,7 +64,7 @@ MakeDir <- function(folder_list){
 #' @return the data.table with name dt_name
 LoadData <- function(file, dt_name  = 'move'){
   assign(dt_name, NULL)
-  cat('loading', dt_name, 'from', file, '\n')
+  VerboseWarning('loading', dt_name, 'from', file, '\n')
   tryCatch(load(file),
     error = function(e){}
   )
@@ -83,15 +83,23 @@ IsEmpty <- function(object, ...){
   UseMethod('IsEmpty')
 }
 
+#' @describeIn IsEmpty NULL
+#' @export
 IsEmpty.NULL <- function(object){
   return(TRUE)
 }
+
+#' @describeIn IsEmpty data.table
+#' @export
 IsEmpty.data.table <- function(dt){
   if(is.null(dt)) return(TRUE)
   if(nrow(dt) == 0) return(TRUE)
   return(FALSE)
 }
 
+
+#' @describeIn IsEmpty list
+#' @export
 IsEmpty.list <- function(list){
   if(is.null(list)) return(TRUE)
   if(length(list) == 0) return(TRUE)

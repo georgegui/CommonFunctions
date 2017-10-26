@@ -53,7 +53,7 @@ GenerateAxisX <- function(pdf_x,
                           x_quantile = 0.05,
                           include_0 = 1,
                           xtitle = NULL){
-  if(x_full_range) return(scale_x_continuous())
+  if(x_full_range) return(scale_x_continuous(name = xtitle))
 
   if(is.null(max_x)|is.null(min_x)){
     max_x        = max(pdf_x, na.rm =TRUE)*x_full_range +
@@ -161,6 +161,7 @@ PrettyPlot <- function(dt,
   }
   x_range <- scalex$limits
   if(is.null(x_range)){
+    if(x_full_range) x_quantile = 0
     x_range <- quantile(dt[, get(x)], c(x_quantile, 1- x_quantile), na.rm = TRUE)
   }
   binwidth <- attr(x_range, 'binwidth')
@@ -169,8 +170,11 @@ PrettyPlot <- function(dt,
   } else {
     bin_breaks <- seq(x_range[[1]], x_range[[2]], by = binwidth)
   }
-
-  myplot <- ggplot(data = dt, aes_string(x = x))
+  dt <- dt[, c(x, weight, color_legend), with = FALSE]
+  dt[, VALUE_TO_PLOT := get(x)]
+  dt[VALUE_TO_PLOT == min(bin_breaks), VALUE_TO_PLOT := VALUE_TO_PLOT + 1e-5]
+  dt[VALUE_TO_PLOT == max(bin_breaks), VALUE_TO_PLOT := VALUE_TO_PLOT - 1e-5]
+  myplot <- ggplot(data = dt, aes_string(x = 'VALUE_TO_PLOT'))
 
   if(is.null(color_legend)){
     hist_aes <- geom_histogram(breaks = bin_breaks,
@@ -197,7 +201,9 @@ PrettyPlot <- function(dt,
     median_val <- dt[, weightedMedian(get(x), get(weight), na.rm= TRUE)]
   }
 
-  myplot <- myplot + hist_aes + hist_fill + scalex +
+  myplot <- myplot + hist_aes + hist_fill +
+    # editted
+    scale_x_continuous(name = scalex$name) + coord_cartesian(scalex$limits) +
     scale_y_continuous(name = ytitle) +
     geom_vline(xintercept = median_val, colour= "red") +
     theme(axis.line.x      = element_line(),

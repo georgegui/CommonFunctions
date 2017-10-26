@@ -3,11 +3,11 @@
 
 #' @export
 CountUniqueC <- function(value, group) {
-    .Call('CommonFunctions_CountUniqueC', PACKAGE = 'CommonFunctions', value, group)
+    .Call('_CommonFunctions_CountUniqueC', PACKAGE = 'CommonFunctions', value, group)
 }
 
 #' @export
 GenerateGroup <- function(id, start, end) {
-    .Call('CommonFunctions_GenerateGroup', PACKAGE = 'CommonFunctions', id, start, end)
+    .Call('_CommonFunctions_GenerateGroup', PACKAGE = 'CommonFunctions', id, start, end)
 }
 
