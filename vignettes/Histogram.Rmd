@@ -1,0 +1,76 @@
+---
+title: "Histogram"
+author: "George Gui"
+date: "3/8/2018"
+output:
+  pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.height = 4, fig.width = 6)
+```
+
+
+This file documents functions used for drawing histograms in the Price-Promotion-Analysis papers. 
+
+```{r}
+if(!require(CommonFunctions)){
+  devtools::install_github('georgegui/CommonFunctions')
+  library(CommonFunctions)
+}
+library(data.table)
+library(gridExtra)
+```
+
+
+# Basic Plot
+
+The function will plot the median of the distribution as a vertical red line. It will also automatically asign meaningful ticks on the x-axis. The default will include 0 into the axis and will truncate the outliers. 
+
+```{r}
+iris <- data.table(iris) 
+ggplot_list <- list()
+```
+
+```{r}
+ggplot_list[[1]] <- PrettyPlot(iris, 'Sepal.Length', include_0 = F)
+ggplot_list[[1]]
+```
+
+# Weight
+
+```{r}
+ggplot_list[[2]] <- PrettyPlot(iris, 'Sepal.Length', include_0 = F, 
+                               weight = 'Sepal.Width')
+ggplot_list[[2]]
+```
+
+# Adjust x-axis
+
+We can also first specifiy X-axis and pass it to the plot function. 
+
+```{r}
+my_axis <- GenerateAxisX(iris$Sepal.Length, min_x = 4, max_x = 8, xtitle = 'Sepal Length')
+ggplot_list[[3]] <- PrettyPlot(iris, 'Sepal.Length', scalex = my_axis)
+ggplot_list[[3]]
+```
+
+# Two colors
+
+```{r}
+iris[, is_setosa := Species == 'setosa']
+
+ggplot_list[[4]] <- PrettyPlot(
+  iris, 'Sepal.Length', include_0 = F, x_full_range = T, 
+  color_legend = 'is_setosa')
+ggplot_list[[4]]
+```
+
+
+# Plot Together
+
+```{r}
+grid.arrange(grobs = ggplot_list)
+```
+
+

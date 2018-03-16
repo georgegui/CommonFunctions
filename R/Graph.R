@@ -43,8 +43,14 @@ FixMargins <- function(plot,  plot_margin_x = 1, plot_margin_y = 2, plot_ratio =
           plot.margin = unit(rep(c(plot_margin_y, plot_margin_x), 2)))
   return(plot)
 }
-#------------------------------------------------------------------------------
-# Generate x axis of a histogram
+
+#' Generate x axis of a histogram
+#'
+#' @param pdf_x a vector of numeric values that can be used as the input to plot the probability distribution.
+#' @param max_x upper bound for x-axis
+#' @param min_x lower bound for x-axis
+#' @param x_quantile when \code{max_x} or \code{min_x} is not supplied, the x will be truncated to get [\code{x_quantile}, 1- \code{x_quantil}]
+#'
 #' @export
 GenerateAxisX <- function(pdf_x,
                           x_full_range = 0,
@@ -63,7 +69,6 @@ GenerateAxisX <- function(pdf_x,
     max_x        = max((1-include_0)*max_x + 0.01,max_x)
     min_x        = min((1-include_0)*min_x - 0.01,min_x)
     cur_limit = c(min_x, max_x)
-
   } else {
     cur_limit = c(min_x, max_x)
   }
@@ -177,18 +182,24 @@ PrettyPlot <- function(dt,
   myplot <- ggplot(data = dt, aes_string(x = 'VALUE_TO_PLOT'))
 
   if(is.null(color_legend)){
-    hist_aes <- geom_histogram(breaks = bin_breaks,
-                               fill = 'lightsteelblue2',
-                               color = 'grey60',
-                               size = 0.1,
-                               aes_string(weight = weight))
+    suppressWarnings(
+      hist_aes <- geom_histogram(
+        breaks = bin_breaks,
+        fill = 'lightsteelblue2',
+        color = 'grey60',
+        size = 0.1,
+        aes_string(weight = weight)
+      )
+    )
     hist_fill <- NULL
   } else {
-    hist_aes <- geom_histogram(breaks = bin_breaks,
-                               color = 'grey60',
-                               size = 0.1,
-                               aes_string(fill = color_legend,
-                                          weight = weight))
+    suppressWarnings(
+      hist_aes <- geom_histogram(
+        breaks = bin_breaks,
+        color = 'grey60',
+        size = 0.1,
+        aes_string(fill = color_legend, weight = weight))
+    )
     hist_fill <- scale_fill_manual(
       values=c("FALSE" = "grey90", "TRUE" = "lightsteelblue2"),
       labels = c("FALSE" = "No", "TRUE" = "Yes"),
