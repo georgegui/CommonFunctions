@@ -6,6 +6,17 @@
 
 using namespace Rcpp;
 
+// findTrailingZeros
+int findTrailingZeros(long n);
+RcppExport SEXP _CommonFunctions_findTrailingZeros(SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< long >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(findTrailingZeros(n));
+    return rcpp_result_gen;
+END_RCPP
+}
 // CountUniqueC
 NumericVector CountUniqueC(NumericVector value, NumericVector group);
 RcppExport SEXP _CommonFunctions_CountUniqueC(SEXP valueSEXP, SEXP groupSEXP) {
@@ -33,6 +44,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_CommonFunctions_findTrailingZeros", (DL_FUNC) &_CommonFunctions_findTrailingZeros, 1},
     {"_CommonFunctions_CountUniqueC", (DL_FUNC) &_CommonFunctions_CountUniqueC, 2},
     {"_CommonFunctions_GenerateGroup", (DL_FUNC) &_CommonFunctions_GenerateGroup, 3},
     {NULL, NULL, 0}

@@ -76,6 +76,7 @@ VerboseWarning <- function(...){
 
 #' Count the number of unique elements
 #'
+#' deprecated by uniqueN in data.table
 #' @param values a list of values
 #' @return the number of unique elements of the list, excluding NA.
 #' @export

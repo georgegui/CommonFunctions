@@ -128,7 +128,7 @@ PrettyAxis <- function(range){
 PrettyPlot <- function(dt,
                        x,
                        # font and text
-                       xtitle         = 'title',
+                       xtitle         = x,
                        ytitle         = 'Frequency',
                        label_size     = 10,
                        # x axis options

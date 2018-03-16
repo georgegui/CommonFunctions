@@ -2,6 +2,22 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
+
+//' @export
+// [[Rcpp::export]]
+int findTrailingZeros(long n){
+  int count = 0;
+  int remainder;
+  do{
+    remainder = n % 10;
+    n = n/10;
+    if (remainder != 0)
+      break;
+    count += 1;
+  } while (true);
+  return count;
+}
+
 //' @export
 // [[Rcpp::export]]
 NumericVector CountUniqueC(NumericVector value, NumericVector group){

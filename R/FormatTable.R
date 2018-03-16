@@ -114,76 +114,76 @@ ReplaceKeyWord <- function(doc, word_list){
   }
   return(doc)
 }
-
-tables_to_modify <- list(
-  table_1 = list(
-    name = '../Tables/Product-sample-descriptive-statistics.tex',
-    func = list(
-      function(x) ModifyPanel(x, 'Panel C'),
-      function(x) DeleteNote(x)
-    )
-  ),
-  table_2 = list(
-    name = '../Tables/Chain-store-descriptive-statistics.tex',
-    func = list(
-      function(x) ModifyPanel(x, 'Panel A', panel_end = '(midrule|bottomrule|cline)')
-    )
-  ),
-  table_5 = list(
-    name = '../Tables/Price-Decomposition-Main.tex',
-    func = list(
-      function(x) ModifyPanel(x, 'Basic decomposition', 'Basic decomposition',
-                              panel_end = '^ *& *&',
-                              alphabet_order = FALSE)
-    )
-  ),
-  table_6 = list(
-    name = '../Tables/Dispersion-Regression-Revenue.tex',
-    func = list(
-      function(x) DeleteColumns(x, c('(5)', '(6)')),
-      function(x) DeleteRows(
-        x, c(
-             'Product group dummy', 'Product module dummy',
-             'Observations', '\\(0.00[0-9]*\\)')),
-      function(x) ReplaceKeyWord(x, list(
-        # list(pat = 'Dependent variable: ', replace = ''),
-        list(pat = 'multicolumn\\{6\\}', replace = 'multicolumn{4}'),
-        # list(pat = '\\^\\{\\*{1, }\\}', replace = ''),
-        list(pat = 'cline\\{2-7\\}', replace = 'cline{2-5}')
-      ))
-    )
-  ),
-  table_7 = list(
-    name = '../Tables/Dispersion-Regression-Penetration.tex',
-    func = list(
-      function(x) DeleteColumns(x, c('(5)', '(6)')),
-      function(x) DeleteRows(
-        x, c(
-             'Product group dummy', 'Product module dummy',
-             'Observations', '\\(0.00[0-9]*\\)')),
-      function(x) ReplaceKeyWord(
-        x, list(
-        # list(pat = 'Dependent variable: ', replace = ''),
-        list(pat = 'cline\\{2-7\\}', replace = 'cline{2-5}'),
-        # list(pat = '\\^\\{\\*{1, }\\}', replace = ''),
-        list(pat = 'multicolumn\\{6\\}', replace = 'multicolumn{4}')
-      ))
-    )
-  ),
-  table_9 = list(
-    name = '../Tables/Promotion-Dependence-Regressions.tex',
-    func = list(
-      function(x) ModifyPanel(x, 'National', 'National', panel_end = 'Intercept & 0.077'),
-      function(x) DeleteColumns(x, c('0.1', '0.25', '0.75', '0.9\\}')),
-      function(x) ReplaceKeyWord(
-        x, list(
-          list(pat = 'multicolumn\\{8\\}', replace = 'multicolumn{4}'),
-          list(pat = '16\\}', replace = '12}')
-        )
-      )
-    )
-  )
-)
+#
+# tables_to_modify <- list(
+#   table_1 = list(
+#     name = '../Tables/Product-sample-descriptive-statistics.tex',
+#     func = list(
+#       function(x) ModifyPanel(x, 'Panel C'),
+#       function(x) DeleteNote(x)
+#     )
+#   ),
+#   table_2 = list(
+#     name = '../Tables/Chain-store-descriptive-statistics.tex',
+#     func = list(
+#       function(x) ModifyPanel(x, 'Panel A', panel_end = '(midrule|bottomrule|cline)')
+#     )
+#   ),
+#   table_5 = list(
+#     name = '../Tables/Price-Decomposition-Main.tex',
+#     func = list(
+#       function(x) ModifyPanel(x, 'Basic decomposition', 'Basic decomposition',
+#                               panel_end = '^ *& *&',
+#                               alphabet_order = FALSE)
+#     )
+#   ),
+#   table_6 = list(
+#     name = '../Tables/Dispersion-Regression-Revenue.tex',
+#     func = list(
+#       function(x) DeleteColumns(x, c('(5)', '(6)')),
+#       function(x) DeleteRows(
+#         x, c(
+#              'Product group dummy', 'Product module dummy',
+#              'Observations', '\\(0.00[0-9]*\\)')),
+#       function(x) ReplaceKeyWord(x, list(
+#         # list(pat = 'Dependent variable: ', replace = ''),
+#         list(pat = 'multicolumn\\{6\\}', replace = 'multicolumn{4}'),
+#         # list(pat = '\\^\\{\\*{1, }\\}', replace = ''),
+#         list(pat = 'cline\\{2-7\\}', replace = 'cline{2-5}')
+#       ))
+#     )
+#   ),
+#   table_7 = list(
+#     name = '../Tables/Dispersion-Regression-Penetration.tex',
+#     func = list(
+#       function(x) DeleteColumns(x, c('(5)', '(6)')),
+#       function(x) DeleteRows(
+#         x, c(
+#              'Product group dummy', 'Product module dummy',
+#              'Observations', '\\(0.00[0-9]*\\)')),
+#       function(x) ReplaceKeyWord(
+#         x, list(
+#         # list(pat = 'Dependent variable: ', replace = ''),
+#         list(pat = 'cline\\{2-7\\}', replace = 'cline{2-5}'),
+#         # list(pat = '\\^\\{\\*{1, }\\}', replace = ''),
+#         list(pat = 'multicolumn\\{6\\}', replace = 'multicolumn{4}')
+#       ))
+#     )
+#   ),
+#   table_9 = list(
+#     name = '../Tables/Promotion-Dependence-Regressions.tex',
+#     func = list(
+#       function(x) ModifyPanel(x, 'National', 'National', panel_end = 'Intercept & 0.077'),
+#       function(x) DeleteColumns(x, c('0.1', '0.25', '0.75', '0.9\\}')),
+#       function(x) ReplaceKeyWord(
+#         x, list(
+#           list(pat = 'multicolumn\\{8\\}', replace = 'multicolumn{4}'),
+#           list(pat = '16\\}', replace = '12}')
+#         )
+#       )
+#     )
+#   )
+# )
 
 PrintStandAloneTable <- function(doc, output_file){
   doc_start <-

@@ -1,3 +1,1 @@
-# CommonFunctions_Public
-
-Convinience function for using data.table on marketing panel data. 
+This repository includes some convinient helper functions for data.table and marketing panel data. 

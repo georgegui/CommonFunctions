@@ -106,3 +106,46 @@ IsEmpty.list <- function(list){
   return(FALSE)
 }
 
+
+#' Copy necessary script files to new folder
+#'
+CopyToNewFolder <- function(
+  from, to,
+  folder_list = folder_list <- c(
+    'DESCRIPTION', 'R/', 'src/',
+    'NAMESPACE', 'inst/', 'vignettes/', 'Readme.md', 'readme')
+){
+  folder_list <- paste0(from, '/', folder_list)
+  MakeDir(to)
+  for(cur_file in folder_list){
+    if(file.exists(cur_file)){
+      file.copy(cur_file, paste0(to, '/'), recursive = TRUE)
+    }
+  }
+}
+
+#' Create a new git repository with only the necessary function files
+#'
+#' @export
+UpdateToGitHub <- function(from, to,
+                           user_name, repos_name, commit_message = 'First Commit'){
+  folder_list <- c(
+    'DESCRIPTION', 'R/', 'src/',
+    'NAMESPACE', 'inst/', 'vignettes/', 'Readme.md', 'readme')
+  folder_list <- paste0(from, '/', folder_list)
+  MakeDir(to)
+  for(cur_file in folder_list){
+    if(file.exists(cur_file)){
+      file.copy(cur_file, paste0(to, '/'), recursive = TRUE)
+    }
+  }
+  repos_name_full <- sprintf('git@github.com:%s/%s.git', user_name, repos_name)
+  Sys.setenv(new_repository = repos_name_full)
+  write(commit_message, '/tmp/git_commit_message.txt')
+  Sys.setenv(commit_message = commit_message)
+  git_upload_script = system.file("create_git.sh", package = 'CommonFunctions')
+  setwd(to)
+  system(paste('sh', git_upload_script))
+  return(NULL)
+
+}

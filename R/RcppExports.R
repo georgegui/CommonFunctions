@@ -2,6 +2,11 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #' @export
+findTrailingZeros <- function(n) {
+    .Call('_CommonFunctions_findTrailingZeros', PACKAGE = 'CommonFunctions', n)
+}
+
+#' @export
 CountUniqueC <- function(value, group) {
     .Call('_CommonFunctions_CountUniqueC', PACKAGE = 'CommonFunctions', value, group)
 }
