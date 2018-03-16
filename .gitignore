@@ -7,5 +7,3 @@ src/*.o
 src/*.so
 src/*.dll
 main_scripts
-R/RcppExports.R
-src/RcppExports.cpp
